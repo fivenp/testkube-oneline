@@ -137,7 +137,7 @@ fi
 
 if [ -n "${WORKFLOW_NAME:-}" ]; then
   echo ">> Running workflow: $WORKFLOW_NAME"
-  EXEC_LINE="$(kubectl-testkube run testworkflow "$WORKFLOW_NAME" --namespace "$K8S_NS" --timeout 0 || true)"
+  EXEC_LINE="$(kubectl-testkube run testworkflow "$WORKFLOW_NAME" --namespace "$K8S_NS" -f || true)"
   echo "$EXEC_LINE"
   EXEC_ID="$(echo "$EXEC_LINE" | awk '{print $NF}' | tr -d '\r' || true)"
   if [ -n "$EXEC_ID" ] && [ "${FOLLOW_LOGS,,}" = "true" ]; then
