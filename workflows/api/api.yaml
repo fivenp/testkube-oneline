@@ -9,23 +9,13 @@ spec:
       revision: main
       paths:
         - services/api
-  env:
-    - name: CI
-      value: "true"
-    - name: NODE_ENV
-      value: "test"
   container:
     image: node:20-alpine
-    workingDir: /workspace
   steps:
     - name: install
       run:
-        shell: sh
-        script: |
-          npm ci
+        shell: cd /data/repo/services/api && npm install
     - name: test
       run:
-        shell: sh
-        script: |
-          npm run test
+        shell: cd /data/repo/services/api && npm run test
           # npx vitest run --reporter=junit --outputFile ./reports/junit.xml || true
